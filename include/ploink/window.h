@@ -1,0 +1,23 @@
+#include <SDL2/SDL.h>
+#include "ploink/game.h"
+
+#ifndef _GAME_WINDOW_H
+#define _GAME_WINDOW_H
+
+enum class GameKeyInputs : size_t {
+    GAME_KEY_UP = 0,
+    GAME_KEY_DOWN = 1,
+    GAME_KEY_LEFT = 2,
+    GAME_KEY_RIGHT = 3,
+    GAME_KEY_FINAL = 4
+};
+
+bool init_screen();
+void event_loop(Game& game);
+void cleanup_screen();
+
+SDL_Window* get_window();
+SDL_Renderer* get_renderer();
+bool key_is_pressed(GameKeyInputs key);
+
+#endif
