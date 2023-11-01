@@ -1,7 +1,7 @@
-#include <SDL2/SDL.h>
-
 #ifndef _GAME_RENDERABLE_H
 #define _GAME_RENDERABLE_H
+
+#include "SDL.h"
 
 class Renderable {
 public:

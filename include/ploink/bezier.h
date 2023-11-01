@@ -1,7 +1,7 @@
-#include "ploink/renderable.h"
-
 #ifndef _GAME_BEZIER_H
 #define _GAME_BEZIER_H
+
+#include "ploink/renderable.h"
 
 struct Bezier : public Renderable {
     SDL_FPoint start, control, end;

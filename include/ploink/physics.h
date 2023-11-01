@@ -1,7 +1,7 @@
-#include <SDL2/SDL.h>
-
 #ifndef _GAME_PHYSICS_H
 #define _GAME_PHYSICS_H
+
+#include "SDL.h"
 
 struct Force {
     float x, y;

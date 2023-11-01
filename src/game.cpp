@@ -5,7 +5,7 @@ const double TAU = 6.283185307179586;
 
 template<int N>
 struct CircleLUT : public Renderable {
-    constexpr CircleLUT() : vertices() {
+    CircleLUT() : vertices() {
         for (auto i = 0; i < N + 1; i++) {
             double angle = (TAU / N) * i;
             vertices[i] = { (float)cos(angle), (float)sin(angle) };
@@ -26,7 +26,7 @@ struct CircleLUT : public Renderable {
 private:
     SDL_FPoint vertices[N + 1];
 };
-constexpr auto circle_lut = CircleLUT<100>();
+const auto circle_lut = CircleLUT<100>();
 
 void Circle::render(SDL_Renderer* renderer) const {
     auto circ = circle_lut;
@@ -40,6 +40,7 @@ void Player::render(SDL_Renderer* renderer) const {
 }
 
 void Level::render(SDL_Renderer* renderer) const {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     for (const auto& bezier : platforms) {
         bezier.render(renderer);
     }

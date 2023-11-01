@@ -1,8 +1,8 @@
-#include <SDL2/SDL.h>
-#include "ploink/game.h"
-
 #ifndef _GAME_WINDOW_H
 #define _GAME_WINDOW_H
+
+#include "SDL.h"
+#include "ploink/game.h"
 
 enum class GameKeyInputs : size_t {
     GAME_KEY_UP = 0,

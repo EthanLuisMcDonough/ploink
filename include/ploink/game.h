@@ -1,8 +1,8 @@
-#include <vector>
-#include "ploink/bezier.h"
-
 #ifndef _GAME_GAME_H
 #define _GAME_GAME_H
+
+#include <vector>
+#include "ploink/bezier.h"
 
 struct Circle : public Renderable {
     SDL_FPoint center;
