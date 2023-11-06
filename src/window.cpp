@@ -5,6 +5,9 @@ SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 bool keys[static_cast<size_t>(GameKeyInputs::GAME_KEY_FINAL)];
 
+float mouse_x = 0, mouse_y = 0,
+    pmouse_x = 0, pmouse_y = 0;
+
 bool init_screen() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         return false;
@@ -40,11 +43,21 @@ void handle_key_event(SDL_KeyboardEvent e) {
     }
 }
 
+void handle_motion_event(SDL_MouseMotionEvent e) {
+    pmouse_x = mouse_x;
+    pmouse_y = mouse_y;
+    mouse_x = e.x;
+    mouse_y = e.y;
+}
+
 bool handle_event(SDL_Event e) {
     switch (e.type) {
         case SDL_KEYDOWN:
         case SDL_KEYUP:
             handle_key_event(e.key);
+            break;
+        case SDL_MOUSEMOTION:
+            handle_motion_event(e.motion);
             break;
         case SDL_QUIT:
             return true;
@@ -86,4 +99,12 @@ SDL_Window* get_window() {
 
 SDL_Renderer* get_renderer() {
     return renderer;
+}
+
+SDL_FPoint get_mouse() {
+    return SDL_FPoint{ mouse_x, mouse_y };
+}
+
+SDL_FPoint get_pmouse() {
+    return SDL_FPoint{ pmouse_x, pmouse_y };
 }

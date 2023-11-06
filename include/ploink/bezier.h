@@ -3,16 +3,22 @@
 
 #include "ploink/renderable.h"
 
-struct Bezier : public Renderable {
-    SDL_FPoint start, control, end;
+#include <vector>
 
-    Bezier(float x0, float y0, float xc, float yc, float x1, float y1) :
-        start({ x0, y0 }), control({ xc, yc }), end({ x1, y1 }) {}
-    Bezier(SDL_FPoint s, SDL_FPoint c, SDL_FPoint e) :
-        start(s), control(c), end(e) {}
+const size_t DEFAULT_SPLINES = 10;
 
-    SDL_FPoint point(float t) const;
+struct Bezier : public Platform {
+    Bezier(float x0, float y0, float xc, float yc, 
+        float x1, float y1, size_t splines = DEFAULT_SPLINES);
+    Bezier(Vec s, Vec c, Vec e, size_t splines = DEFAULT_SPLINES);
+
+    Vec point(float t) const;
+    Vec project(Vec p) const;
+
     void render(SDL_Renderer* renderer) const;
+private:
+    Vec start, control, end;
+    std::vector<Vec> table;
 };
 
 inline float bezier_point(float p0, float p1, float p2, float t) {

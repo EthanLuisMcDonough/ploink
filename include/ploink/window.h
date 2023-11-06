@@ -20,4 +20,7 @@ SDL_Window* get_window();
 SDL_Renderer* get_renderer();
 bool key_is_pressed(GameKeyInputs key);
 
+SDL_FPoint get_mouse();
+SDL_FPoint get_pmouse();
+
 #endif
