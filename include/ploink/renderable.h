@@ -5,7 +5,8 @@
 #include "SDL.h"
 
 struct Renderable {
-    virtual void render(SDL_Renderer* renderer) const = 0;
+    virtual void render(SDL_Renderer* renderer,
+        Vec camera = { 0, 0 }) const = 0;
 };
 
 struct Platform : public Renderable {

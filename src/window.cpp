@@ -101,6 +101,14 @@ SDL_Renderer* get_renderer() {
     return renderer;
 }
 
+SDL_FPoint get_win_center() {
+    int w, h;
+    SDL_GetWindowSize(window, &w, &h);
+    float center_x = (float)w / 2.0f,
+        center_y = (float)h / 2.0f;
+    return { center_x, center_y };
+}
+
 SDL_FPoint get_mouse() {
     return SDL_FPoint{ mouse_x, mouse_y };
 }

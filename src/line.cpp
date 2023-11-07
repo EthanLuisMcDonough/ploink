@@ -1,8 +1,10 @@
 #include "ploink/line.h"
 #include <cmath>
 
-void Line::render(SDL_Renderer* renderer) const {
-	SDL_RenderDrawLineF(renderer, start.x, start.y, end.x, end.y);
+void Line::render(SDL_Renderer* renderer, Vec c) const {
+	SDL_RenderDrawLineF(renderer,
+		start.x - c.x, start.y - c.y,
+		end.x - c.x, end.y - c.y);
 }
 
 Vec Line::point(float t) const {

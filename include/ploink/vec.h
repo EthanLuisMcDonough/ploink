@@ -8,6 +8,7 @@ struct Vec {
 
     Vec(float _x, float _y) : x{ _x }, y{ _y } {}
     Vec(SDL_FPoint p) : x{ p.x }, y{ p.y } {}
+    Vec() : Vec(0, 0) {}
 
     // Addition
     inline Vec operator+(const Vec& f) const {
@@ -47,6 +48,10 @@ struct Vec {
         x /= f;
         y /= f;
         return *this;
+    }
+
+    inline Vec operator-() const {
+        return *this * -1;
     }
 
     // Euclidian distance

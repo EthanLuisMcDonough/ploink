@@ -13,7 +13,7 @@
 struct Circle : public Renderable {
     Circle(Vec p, float r) : center{ p }, radius{ r } {}
 
-    virtual void render(SDL_Renderer* renderer) const;
+    virtual void render(SDL_Renderer* renderer, Vec center) const;
 protected:
     float radius;
     Vec center;
@@ -41,14 +41,22 @@ protected:
 class Player : public DynamicCircle {
 public:
     Player(Vec p, float r = PLAYER_DEFAULT_SIZE)
-        : DynamicCircle(p, r), torque{ 0 }, angular_velocity{0} {}
+        : DynamicCircle(p, r), torque{ 0 }, angular_velocity{0} { }
     Player(float x, float y, float r = PLAYER_DEFAULT_SIZE)
-        : Player({ x, y }, r) {}
+        : Player({ x, y }, r) { }
+    Player() : Player({ 0, 0 }, PLAYER_DEFAULT_SIZE) { }
 
     void move(float d);
+    void jump();
 
-    void render(SDL_Renderer* renderer) const;
+    void render(SDL_Renderer* renderer, Vec center) const;
     void apply_forces();
+
+    void reset(Vec p);
+
+    inline Vec get_center() const {
+        return center;
+    }
 private:
     float torque, angular_velocity;
 };

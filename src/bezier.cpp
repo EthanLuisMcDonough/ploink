@@ -13,8 +13,9 @@ Bezier::Bezier(Vec s, Vec c, Vec e, size_t splines)
     }
 }
 
-Bezier::Bezier(float x0, float y0, float xc, float yc, float x1, float y1, size_t s)
-    : Bezier({ x0, y0 }, { xc, yc }, { x1, y1 }, s) { }
+Bezier::Bezier(float x0, float y0, float xc, float yc, 
+    float x1, float y1, size_t s) : Bezier({ x0, y0 },
+        { xc, yc }, { x1, y1 }, s) { }
 
 Vec Bezier::point(float t) const {
     float x = bezier_point(start.x, control.x, end.x, t),
@@ -22,11 +23,13 @@ Vec Bezier::point(float t) const {
     return Vec(x, y);
 }
 
-void Bezier::render(SDL_Renderer* renderer) const {
+void Bezier::render(SDL_Renderer* renderer, Vec center) const {
     Vec prev = start;
     for (int i = 0; i <= table.size(); i++) {
         Vec point = i == table.size() ? end : table[i];
-        SDL_RenderDrawLineF(renderer, prev.x, prev.y, point.x, point.y);
+        SDL_RenderDrawLineF(renderer,
+            prev.x - center.x, prev.y - center.y,
+            point.x - center.x, point.y - center.y);
         prev = point;
     }
 }

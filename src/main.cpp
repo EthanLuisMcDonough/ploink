@@ -15,10 +15,11 @@ int main(int argc, char* args[]) {
     bezier.emplace_back(300, 300, 500, 300, 500, 250);
     bezier.emplace_back(500, 250, 500, 100, 700, 250);
 
-    Player p(200, 100);
-    levels.emplace_back(std::move(bezier), std::move(p));
+    //Player p(200, 100);
+    levels.emplace_back(std::move(bezier), Vec{ 200, 100 });
 
     Game g(std::move(levels));
+    g.init_level();
 
     event_loop(g);
     cleanup_screen();

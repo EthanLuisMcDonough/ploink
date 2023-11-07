@@ -6,28 +6,14 @@
 #include <cmath>
 #include <iostream>
 
-void Level::render(SDL_Renderer* renderer) const {
+void Level::render(SDL_Renderer* renderer, Vec c) const {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     for (const auto& bezier : platforms) {
-        bezier.render(renderer);
+        bezier.render(renderer, c);
     }
-    player.render(renderer);
 }
 
-void Level::update() {
-    player.apply_forces();
-    player.reset_normal();
-    player.collide_with(*this);
-    if (player.has_landed() && key_is_pressed(GameKeyInputs::GAME_KEY_UP)) {
-        player.apply_velocity({ 0, -PLAYER_JUMP_HEIGHT });
-    }
-    if (key_is_pressed(GameKeyInputs::GAME_KEY_RIGHT)) {
-        player.move(PLAYER_MOVEMENT_SPEED);
-    }
-    if (key_is_pressed(GameKeyInputs::GAME_KEY_LEFT)) {
-        player.move(-PLAYER_MOVEMENT_SPEED);
-    }
-}
+void Level::update() { }
 
 Vec Level::project(Vec point) const {
     Vec closest = { 0,0 };
@@ -48,14 +34,40 @@ void Game::render(SDL_Renderer* renderer) const {
     SDL_RenderClear(renderer);
 
     if (current_level < levels.size()) {
-        levels[current_level].render(renderer);
+        levels[current_level].render(renderer, get_camera());
     }
 
+    player.render(renderer, get_camera());
     SDL_RenderPresent(renderer);
 }
 
 void Game::update() {
+    if (current_level >= levels.size()) {
+        return;
+    }
+
+    levels[current_level].update();
+
+    player.apply_forces();
+    player.reset_normal();
+    player.collide_with(levels[current_level]);
+
+    if (key_is_pressed(GameKeyInputs::GAME_KEY_UP)) {
+        player.jump();
+    }
+    if (key_is_pressed(GameKeyInputs::GAME_KEY_RIGHT)) {
+        player.move(PLAYER_MOVEMENT_SPEED);
+    } else if (key_is_pressed(GameKeyInputs::GAME_KEY_LEFT)) {
+        player.move(-PLAYER_MOVEMENT_SPEED);
+    }
+}
+
+Vec Game::get_camera() const {
+    return player.get_center() - Vec(get_win_center());
+}
+
+void Game::init_level() {
     if (current_level < levels.size()) {
-        levels[current_level].update();
+        player.reset(get_level().get_start());
     }
 }

@@ -4,8 +4,8 @@
 #include <iostream>
 #include <cmath>
 
-void Circle::render(SDL_Renderer* renderer) const {
-    draw_circle(renderer, center, radius);
+void Circle::render(SDL_Renderer* renderer, Vec c) const {
+    draw_circle(renderer, center - c, radius);
 }
 
 void DynamicCircle::apply_velocity(Vec v) {
@@ -39,15 +39,15 @@ void DynamicCircle::collide_with(DynamicCircle& l) {
 }
 
 bool DynamicCircle::has_landed() {
-    return normal.has_value() && normal->y <= -0.64;
+    return normal.has_value() && normal->y <= -PLAYER_JUMP_THRESHOLD;
 }
 
 void Player::apply_forces() {
     // ???
     if (normal.has_value()) {
-        angular_velocity = velocity.magnitude() / (2 * radius * M_PI) * signbit(velocity.x);
+        angular_velocity = velocity.magnitude() / (radius) * signbit(velocity.x);
     }
-    DynamicCircle::apply_forces(roll);
+    DynamicCircle::apply_forces();
     torque += angular_velocity;
 }
 
@@ -55,22 +55,35 @@ void Player::move(float d) {
     if (has_landed()) {
         velocity += normal->rot90() * -d;
     } else {
-        //velocity.x += d;
+        velocity.x += d;
     }
 }
 
-void Player::render(SDL_Renderer* renderer) const {
-    //SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    Circle::render(renderer);
+void Player::jump() {
+    if (has_landed()) {
+        velocity.y -= PLAYER_JUMP_HEIGHT;
+    }
+}
+
+void Player::reset(Vec p) {
+    acceleration = { 0, 0 };
+    velocity = { 0, 0 };
+    center = p;
+}
+
+void Player::render(SDL_Renderer* renderer, Vec c) const {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    Circle::render(renderer, c);
 
     float r = radius * 0.75;
     Vec v0(cos(torque) * r, sin(torque) * r);
     Vec v1 = v0.rot90();
+    Vec ce = center - c;
 
     SDL_RenderDrawLineF(renderer,
-        center.x + v0.x, center.y + v0.y,
-        center.x - v0.x, center.y - v0.y);
+        ce.x + v0.x, ce.y + v0.y,
+        ce.x - v0.x, ce.y - v0.y);
     SDL_RenderDrawLineF(renderer,
-        center.x + v1.x, center.y + v1.y,
-        center.x - v1.x, center.y - v1.y);
+        ce.x + v1.x, ce.y + v1.y,
+        ce.x - v1.x, ce.y - v1.y);
 }

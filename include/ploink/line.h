@@ -19,7 +19,7 @@ struct Line : public Platform {
 		return end;
 	}
 
-	void render(SDL_Renderer* render) const;
+	void render(SDL_Renderer* render, Vec center) const;
 
 	float intersect(const Line& line) const;
 	float length() const;

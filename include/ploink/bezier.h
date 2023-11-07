@@ -15,7 +15,7 @@ struct Bezier : public Platform {
     Vec point(float t) const;
     Vec project(Vec p) const;
 
-    void render(SDL_Renderer* renderer) const;
+    void render(SDL_Renderer* renderer, Vec center) const;
 private:
     Vec start, control, end;
     std::vector<Vec> table;

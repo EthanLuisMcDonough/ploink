@@ -4,7 +4,7 @@
 #include <cmath>
 
 template<int N>
-struct CircleLUT : public Renderable {
+struct CircleLUT {
     CircleLUT() : vertices() {
         for (auto i = 0; i < N + 1; i++) {
             double angle = ((2 * M_PI) / N) * i;
