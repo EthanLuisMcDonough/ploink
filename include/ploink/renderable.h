@@ -9,7 +9,6 @@ struct Renderable {
 };
 
 struct Platform : public Renderable {
-    virtual Vec point(float t) const = 0;
     virtual Vec project(Vec p) const = 0;
 };
 

@@ -9,7 +9,8 @@
 
 struct Line : public Platform {
 	Line(Vec s, Vec e) : start{ s }, end{ e } { }
-	Line(float x0, float y0, float x1, float y1) : Line({ x0, y0 }, { x1, y1 }) { }
+	Line(float x0, float y0, float x1, float y1) : 
+		Line({ x0, y0 }, { x1, y1 }) { }
 
 	inline Vec get_start() const {
 		return start;
@@ -25,13 +26,6 @@ struct Line : public Platform {
 
 	Vec project(Vec p) const;
 	Vec point(float t) const;
-protected:
-	inline float dx() const {
-		return end.x - start.x;
-	}
-	inline float dy() const {
-		return end.y - start.y;
-	}
 private:
 	Vec start, end;
 };

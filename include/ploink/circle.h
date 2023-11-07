@@ -4,6 +4,11 @@
 #include "ploink/vec.h"
 #include "ploink/renderable.h"
 #include "ploink/line.h"
+#include "ploink/constants.h"
+
+#include <memory>
+#include <vector>
+#include <optional>
 
 struct Circle : public Renderable {
     Circle(Vec p, float r) : center{ p }, radius{ r } {}
@@ -15,23 +20,32 @@ protected:
 };
 
 struct DynamicCircle : public Circle {
-    DynamicCircle(SDL_FPoint p, float r) : Circle(p, r),
+    DynamicCircle(Vec p, float r) : Circle(p, r),
         velocity{ Vec{0, 0} }, acceleration{ Vec{0, 0} } {}
 
     void collide_with(const Platform& l);
     void collide_with(DynamicCircle& c);
+
+    inline void reset_normal() {
+        normal = std::nullopt;
+    }
+    inline bool has_landed() {
+        return normal.has_value();
+    }
+
     virtual void apply_forces();
+    void apply_velocity(Vec v);
 protected:
     Vec velocity, acceleration;
+    std::optional<Vec> normal;
 };
 
-const float PLAYER_DEFAULT_SIZE = 20;
-class Player : private DynamicCircle {
+class Player : public DynamicCircle {
 public:
-    Player(SDL_FPoint p, float r = PLAYER_DEFAULT_SIZE)
+    Player(Vec p, float r = PLAYER_DEFAULT_SIZE)
         : DynamicCircle(p, r), torque{ 0 } {}
     Player(float x, float y, float r = PLAYER_DEFAULT_SIZE)
-        : Player(SDL_FPoint{ x, y }, r) {}
+        : Player({ x, y }, r) {}
 
     void render(SDL_Renderer* renderer) const;
 private:

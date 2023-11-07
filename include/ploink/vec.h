@@ -3,8 +3,6 @@
 
 #include "SDL.h"
 
-const float GRAVITY = 0.982, TERMINAL_VELOCITY = 5.230;
-
 struct Vec {
     float x, y;
 
@@ -60,6 +58,10 @@ struct Vec {
         return (*this - p).magnitude_sq();
     }
     float dist(const Vec& p) const;
+
+    inline float dot(const Vec& p) const {
+        return x * p.x + y * p.y;
+    }
 
     Vec capped(float max_size) const;
     Vec with_len(float scalar) const;

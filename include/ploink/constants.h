@@ -1,0 +1,11 @@
+#ifndef _GAME_CONSTANTS_H
+#define _GAME_CONSTANTS_H
+
+const float GRAVITY = 1.75,
+	TERMINAL_VELOCITY = 15.5,
+	DAMPENING = 0.98;
+
+const float PLAYER_JUMP_HEIGHT = 15,
+	PLAYER_DEFAULT_SIZE = 20;
+
+#endif

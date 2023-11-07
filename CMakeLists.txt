@@ -10,7 +10,8 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 set(SOURCES src/main.cpp src/window.cpp src/bezier.cpp
-    src/game.cpp src/line.cpp src/circle.cpp src/vec.cpp)
+    src/game.cpp src/line.cpp src/circle.cpp src/vec.cpp
+    src/drawing.cpp)
 
 add_executable(ploink_exe ${SOURCES})
 set_property(TARGET ploink_exe PROPERTY CXX_STANDARD 17)
