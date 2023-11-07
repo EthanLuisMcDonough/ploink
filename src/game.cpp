@@ -21,6 +21,12 @@ void Level::update() {
     if (player.has_landed() && key_is_pressed(GameKeyInputs::GAME_KEY_UP)) {
         player.apply_velocity({ 0, -PLAYER_JUMP_HEIGHT });
     }
+    if (key_is_pressed(GameKeyInputs::GAME_KEY_RIGHT)) {
+        player.move(PLAYER_MOVEMENT_SPEED);
+    }
+    if (key_is_pressed(GameKeyInputs::GAME_KEY_LEFT)) {
+        player.move(-PLAYER_MOVEMENT_SPEED);
+    }
 }
 
 Vec Level::project(Vec point) const {

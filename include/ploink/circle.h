@@ -29,9 +29,7 @@ struct DynamicCircle : public Circle {
     inline void reset_normal() {
         normal = std::nullopt;
     }
-    inline bool has_landed() {
-        return normal.has_value();
-    }
+    bool has_landed();
 
     virtual void apply_forces();
     void apply_velocity(Vec v);
@@ -43,13 +41,16 @@ protected:
 class Player : public DynamicCircle {
 public:
     Player(Vec p, float r = PLAYER_DEFAULT_SIZE)
-        : DynamicCircle(p, r), torque{ 0 } {}
+        : DynamicCircle(p, r), torque{ 0 }, angular_velocity{0} {}
     Player(float x, float y, float r = PLAYER_DEFAULT_SIZE)
         : Player({ x, y }, r) {}
 
+    void move(float d);
+
     void render(SDL_Renderer* renderer) const;
+    void apply_forces();
 private:
-    float torque;
+    float torque, angular_velocity;
 };
 
 #endif

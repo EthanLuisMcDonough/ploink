@@ -80,7 +80,7 @@ void event_loop(Game& g) {
         }
         long new_timestamp = SDL_GetTicks();
         double dt = new_timestamp - timestamp;
-        if (dt > 1000.0/60.0) {
+        if (dt > 1000.0/FRAME_RATE) {
             g.update();
             g.render(renderer);
         }

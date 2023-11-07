@@ -63,6 +63,10 @@ struct Vec {
         return x * p.x + y * p.y;
     }
 
+    inline Vec rot90() const {
+        return Vec(y, -x);
+    }
+
     Vec capped(float max_size) const;
     Vec with_len(float scalar) const;
     Vec unit() const;
