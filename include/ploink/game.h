@@ -12,8 +12,11 @@ public:
     void update();
     void render(SDL_Renderer* renderer, Vec c) const;
 
-    Level(std::vector<Bezier> b, Vec start) : 
-        platforms{ std::move(b) }, player_start{ start } { }
+    Level(std::vector<Bezier> b, std::vector<DynamicCircle> c,
+        Vec start) : platforms{ std::move(b) }, balls{ std::move(c)}, 
+        player_start{ start } { }
+
+    void handle_player(Player& p);
 
     inline Vec get_start() {
         return player_start;
@@ -22,6 +25,7 @@ public:
     Vec project(Vec p) const;
 private:
     std::vector<Bezier> platforms;
+    std::vector<DynamicCircle> balls;
     Vec player_start;
 };
 

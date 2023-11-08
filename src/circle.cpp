@@ -35,7 +35,21 @@ void DynamicCircle::collide_with(const Platform& l) {
 }
 
 void DynamicCircle::collide_with(DynamicCircle& l) {
-    
+    Vec dist = center - l.center;
+    float r_sum = radius + l.radius;
+    float mag = dist.magnitude();
+    if (mag < r_sum) {
+        Vec unit = dist.unit();
+        float pd = (r_sum - mag) / 2.0f;
+        center += unit * pd;
+        l.center -= unit * pd;
+        Vec dv = velocity - l.velocity;
+        Vec norm = dist.unit();
+        float new_vel_mag = dv.dot(norm);
+        Vec new_vel = norm * new_vel_mag;
+        l.velocity += new_vel;
+        velocity -= new_vel;
+    }
 }
 
 bool DynamicCircle::has_landed() {

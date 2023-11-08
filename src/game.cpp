@@ -11,9 +11,30 @@ void Level::render(SDL_Renderer* renderer, Vec c) const {
     for (const auto& bezier : platforms) {
         bezier.render(renderer, c);
     }
+    for (const auto& ball : balls) {
+        ball.render(renderer, c);
+    }
 }
 
-void Level::update() { }
+void Level::update() {
+    for (int i = 0; i < balls.size(); i++) {
+        auto& ball = balls[i];
+        for (int j = i + 1; j < balls.size(); j++) {
+            ball.collide_with(balls[j]);
+        }
+        for (const auto& bezier : platforms) {
+            ball.collide_with(bezier);
+        }
+        ball.apply_forces();
+    }
+}
+
+void Level::handle_player(Player& p) {
+    for (auto& ball : balls) {
+        p.collide_with(ball);
+    }
+    p.collide_with(*this);
+}
 
 Vec Level::project(Vec point) const {
     Vec closest = { 0,0 };
@@ -46,11 +67,11 @@ void Game::update() {
         return;
     }
 
-    levels[current_level].update();
+    get_level().update();
 
     player.apply_forces();
     player.reset_normal();
-    player.collide_with(levels[current_level]);
+    get_level().handle_player(player);
 
     if (key_is_pressed(GameKeyInputs::GAME_KEY_UP)) {
         player.jump();

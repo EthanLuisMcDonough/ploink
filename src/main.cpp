@@ -10,8 +10,13 @@ int main(int argc, char* args[]) {
 
     std::vector<Level> levels;
 
-    std::vector<DynamicCircle> balls;
+    DynamicCircle ball1(Vec{ 300, 160 }, 10.0f);
+    DynamicCircle ball2(Vec{ 350, 150 }, 15.0f);
 
+    std::vector<DynamicCircle> balls;
+    balls.push_back(std::move(ball1));
+    balls.push_back(std::move(ball2));
+    
 
     std::vector<Bezier> bezier;
     bezier.emplace_back(100, 100, 100, 300, 300, 300);
@@ -21,7 +26,8 @@ int main(int argc, char* args[]) {
     bezier.emplace_back(1200, 150, 1350, 50, 1200, -50);
     bezier.emplace_back(100, 100, 100, -150, 300, -150);
 
-    levels.emplace_back(std::move(bezier), Vec{ 200, 100 });
+    levels.emplace_back(std::move(bezier), 
+        std::move(balls), Vec{ 200, 100 });
 
     Game g(std::move(levels));
     g.init_level();

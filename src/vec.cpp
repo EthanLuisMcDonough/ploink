@@ -14,7 +14,11 @@ Vec Vec::with_len(float scalar) const {
 }
 
 Vec Vec::unit() const {
-	return *this / magnitude();
+	float mag = magnitude();
+	if (mag == 1.0 || mag == 0.0) {
+		return *this;
+	}
+	return *this / mag;
 }
 
 Vec Vec::capped(float max_mag) const {
