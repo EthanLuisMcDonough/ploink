@@ -40,6 +40,9 @@ void handle_key_event(SDL_KeyboardEvent e) {
         case SDLK_LEFT:
             keys[static_cast<size_t>(GameKeyInputs::GAME_KEY_LEFT)] = is_keydown;
             break;
+        case SDLK_r:
+            keys[static_cast<size_t>(GameKeyInputs::GAME_KEY_RESET)] = is_keydown;
+            break;
     }
 }
 

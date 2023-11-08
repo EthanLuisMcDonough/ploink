@@ -43,10 +43,8 @@ bool DynamicCircle::has_landed() {
 }
 
 void Player::apply_forces() {
-    // ???
-    if (normal.has_value()) {
-        angular_velocity = velocity.magnitude() / (radius) * signbit(velocity.x);
-    }
+    float speed = normal.has_value() ? velocity.magnitude() : abs(velocity.x);
+    angular_velocity = speed / radius * copysignf(PLAYER_ROTATION_SPEED, velocity.x);
     DynamicCircle::apply_forces();
     torque += angular_velocity;
 }

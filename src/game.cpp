@@ -60,6 +60,9 @@ void Game::update() {
     } else if (key_is_pressed(GameKeyInputs::GAME_KEY_LEFT)) {
         player.move(-PLAYER_MOVEMENT_SPEED);
     }
+    if (key_is_pressed(GameKeyInputs::GAME_KEY_RESET)) {
+        init_level();
+    }
 }
 
 Vec Game::get_camera() const {

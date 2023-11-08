@@ -9,7 +9,8 @@ enum class GameKeyInputs : size_t {
     GAME_KEY_DOWN = 1,
     GAME_KEY_LEFT = 2,
     GAME_KEY_RIGHT = 3,
-    GAME_KEY_FINAL = 4
+    GAME_KEY_RESET = 4,
+    GAME_KEY_FINAL = 5
 };
 
 bool init_screen();
