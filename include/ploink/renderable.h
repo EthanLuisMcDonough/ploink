@@ -9,8 +9,13 @@ struct Renderable {
         Vec camera = { 0, 0 }) const = 0;
 };
 
+struct ProjectionData {
+    Vec pos;
+    bool is_hazard;
+};
+
 struct Platform : public Renderable {
-    virtual Vec project(Vec p) const = 0;
+    virtual ProjectionData project(Vec p) const = 0;
 };
 
 #endif

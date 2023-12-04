@@ -1,3 +1,5 @@
+#include <string>
+#include <stddef.h>
 #include "ploink/window.h"
 #include "ploink/game.h"
 
@@ -7,6 +9,8 @@ bool keys[static_cast<size_t>(GameKeyInputs::GAME_KEY_FINAL)];
 
 float mouse_x = 0, mouse_y = 0,
     pmouse_x = 0, pmouse_y = 0;
+size_t frame_count = 0;
+std::string path;
 
 bool init_screen() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -19,6 +23,9 @@ bool init_screen() {
     );
     renderer = SDL_CreateRenderer(window, -1, 
         SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+
+    path = SDL_GetBasePath();
+
     if (renderer == NULL) {
         return false;
     }
@@ -72,6 +79,14 @@ bool key_is_pressed(GameKeyInputs key) {
     return keys[static_cast<size_t>(key)];
 }
 
+void increment_frame_count() {
+    if (frame_count == SIZE_MAX) {
+        frame_count = 0;
+    } else {
+        frame_count++;
+    }
+}
+
 void event_loop(Game& g) {
     long timestamp = SDL_GetTicks();
     SDL_Event e;
@@ -84,6 +99,7 @@ void event_loop(Game& g) {
         long new_timestamp = SDL_GetTicks();
         double dt = new_timestamp - timestamp;
         if (dt > 1000.0/FRAME_RATE) {
+            increment_frame_count();
             g.update();
             g.render(renderer);
         }
@@ -118,4 +134,12 @@ SDL_FPoint get_mouse() {
 
 SDL_FPoint get_pmouse() {
     return SDL_FPoint{ pmouse_x, pmouse_y };
+}
+
+size_t get_frame_count() {
+    return frame_count;
+}
+
+std::string_view get_exe_path() {
+    return std::string_view(path);
 }

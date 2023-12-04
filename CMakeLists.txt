@@ -11,10 +11,13 @@ include_directories(${SDL2_INCLUDE_DIRS})
 
 set(SOURCES src/main.cpp src/window.cpp src/bezier.cpp
     src/game.cpp src/line.cpp src/circle.cpp src/vec.cpp
-    src/drawing.cpp)
+    src/drawing.cpp src/loader.cpp)
 
 add_executable(ploink_exe ${SOURCES})
 set_property(TARGET ploink_exe PROPERTY CXX_STANDARD 17)
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/levels.json
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 target_include_directories(ploink_exe PRIVATE include)
 

@@ -8,9 +8,10 @@
 #include <optional>
 
 struct Line : public Platform {
-	Line(Vec s, Vec e) : start{ s }, end{ e } { }
-	Line(float x0, float y0, float x1, float y1) : 
-		Line({ x0, y0 }, { x1, y1 }) { }
+	Line(Vec s, Vec e, bool h = false) : start{ s }, end{ e },
+		is_hazard{ h } { }
+	Line(float x0, float y0, float x1, float y1, bool h = false) : 
+		Line({ x0, y0 }, { x1, y1 }, h) { }
 
 	inline Vec get_start() const {
 		return start;
@@ -24,10 +25,11 @@ struct Line : public Platform {
 	float intersect(const Line& line) const;
 	float length() const;
 
-	Vec project(Vec p) const;
+	ProjectionData project(Vec p) const;
 	Vec point(float t) const;
 private:
 	Vec start, end;
+	bool is_hazard;
 };
 
 #endif

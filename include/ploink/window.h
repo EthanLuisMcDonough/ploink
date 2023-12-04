@@ -1,6 +1,7 @@
 #ifndef _GAME_WINDOW_H
 #define _GAME_WINDOW_H
 
+#include <string_view>
 #include "SDL.h"
 #include "ploink/game.h"
 
@@ -24,5 +25,7 @@ bool key_is_pressed(GameKeyInputs key);
 SDL_FPoint get_mouse();
 SDL_FPoint get_pmouse();
 SDL_FPoint get_win_center();
+size_t get_frame_count();
+std::string_view get_exe_path();
 
 #endif
