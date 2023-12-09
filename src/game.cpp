@@ -67,18 +67,6 @@ void Level::reset() {
     }
 }
 
-void Level::prevent_clipping(DynamicCircle& c) const {
-    Line trajectory(c.get_past_center(), c.get_center());
-    float t = 1.0;
-    for (const auto& bezier : platforms) {
-        t = std::min(t, bezier.intersect(trajectory));
-    }
-    if (t < 1.0) {
-        Vec inv_dir = (c.get_center() - c.get_past_center()).with_len(c.get_radius());
-        c.set_center(inv_dir + c.get_center());
-    }
-}
-
 ProjectionData Level::project(Vec point) const {
     ProjectionData closest;
     float dist_sq = std::numeric_limits<float>::infinity();

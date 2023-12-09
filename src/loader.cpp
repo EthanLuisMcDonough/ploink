@@ -13,7 +13,6 @@ std::vector<Level> load_levels() {
 
 	std::string s(get_exe_path());
 	s.append("levels.json");
-	std::cout << s << "\n";
 
 	std::ifstream file(s);
 	file >> j;

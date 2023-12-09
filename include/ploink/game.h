@@ -7,6 +7,11 @@
 
 #include <vector>
 
+/// <summary>
+/// The object responsible for storing and managing non-player game objects.
+/// The level is in charge of managing the emitters, platforms, and projectiles
+/// in a particilar level. A level is a platform to encapsulate projection logic
+/// </summary>
 class Level : public Platform {
 public:
     void update();
@@ -16,7 +21,15 @@ public:
         Vec end) : platforms{ std::move(b) }, emitters{ std::move(e)},
         player_start{ start }, goal{ end } { }
 
+    /// <summary>
+    /// Allows a game-scope player to interact with level objects
+    /// </summary>
+    /// <param name="p">The player meant to interface with the game</param>
     void handle_player(Player& p);
+
+    /// <summary>
+    /// Resets a level to its initial state
+    /// </summary>
     void reset();
 
     inline Vec get_start() const {
@@ -26,9 +39,13 @@ public:
         return goal;
     }
 
-    void prevent_clipping(DynamicCircle& c) const;
     ProjectionData project(Vec p) const;
 private:
+    /// <summary>
+    /// Renders the level end/goal
+    /// </summary>
+    /// <param name="renderer">SDL renderer</param>
+    /// <param name="center">Where to render the end</param>
     void render_end(SDL_Renderer* renderer, Vec center) const;
 
     std::vector<Bezier> platforms;
@@ -38,6 +55,9 @@ private:
     std::optional<Bezier> cached_closest = std::nullopt;
 };
 
+/// <summary>
+/// The object responsible for managing levels and 
+/// </summary>
 class Game {
 public:
     void init_level();

@@ -8,6 +8,12 @@
 
 const size_t DEFAULT_SPLINES = 10;
 
+/// <summary>
+/// Platform class for quadratic bezier curves
+/// Quadratic bezier objects are composed of an N line segments
+/// approximating the parametric curve.Curves can be marked as
+/// either hazards or safe platforms.
+/// </summary>
 struct Bezier : public Platform {
     Bezier(float x0, float y0, float xc, float yc, 
         float x1, float y1, bool hazard = false,

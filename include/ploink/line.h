@@ -7,6 +7,10 @@
 
 #include <optional>
 
+/// <summary>
+/// Class meant to represent a line or "linear bezier". Used in
+/// quad bezier projection logic
+/// </summary>
 struct Line : public Platform {
 	Line(Vec s, Vec e, bool h = false) : start{ s }, end{ e },
 		is_hazard{ h } { }

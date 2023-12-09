@@ -3,6 +3,9 @@
 
 #include "SDL.h"
 
+/// <summary>
+/// Math class for 2D vectors
+/// </summary>
 struct Vec {
     float x, y;
 

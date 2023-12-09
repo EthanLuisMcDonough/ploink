@@ -1,18 +1,29 @@
 #ifndef _GAME_CONSTANTS_H
 #define _GAME_CONSTANTS_H
 
+/**
+ * Physics constants
+ */
 const float GRAVITY = 0.75f,
 	TERMINAL_VELOCITY = 20,
 	DAMPENING = 0.95f,
 	COLLISION_DAMPENING = 0.95f;
 
+/**
+ * Player constants
+ */
 const float PLAYER_JUMP_HEIGHT = 20,
 	PLAYER_DEFAULT_SIZE = 20,
 	PLAYER_MOVEMENT_SPEED = 0.75f,
 	PLAYER_ROTATION_SPEED = 0.25f,
 	PLAYER_JUMP_THRESHOLD = 0.7f;
 
+// Frame rate
 const double FRAME_RATE = 60.0;
+
+/**
+ * Hazard and life constants
+ */
 const float GOAL_SIZE = PLAYER_DEFAULT_SIZE,
 	HAZARD_EMITTER_SIZE = PLAYER_DEFAULT_SIZE,
 	HAZARD_SIZE = PLAYER_DEFAULT_SIZE,
