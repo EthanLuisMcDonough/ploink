@@ -102,6 +102,7 @@ void event_loop(Game& g) {
             increment_frame_count();
             g.update();
             g.render(renderer);
+            timestamp = new_timestamp;
         }
     }
 }
