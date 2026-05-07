@@ -7,7 +7,7 @@
 #include "ploink/drawing.h"
 
 const int PULSE_PERIOD = 1000;
-const float PULSE_PERIOD_ANGLE = ((2 * M_PI) / (float)PULSE_PERIOD);
+const float PULSE_PERIOD_ANGLE = ((2 * M_PI) / static_cast<float>(PULSE_PERIOD));
 
 void Level::render_end(SDL_Renderer* renderer, Vec center) const {
     SDL_SetRenderDrawColor(renderer, 3, 148, 51, 255);

@@ -95,8 +95,8 @@ void Player::reset(Vec p) {
 }
 
 void Player::render_healthbar(SDL_Renderer* renderer) const {
-    float percent = ((float)active_life) / starting_life;
-    float health_length = percent * 100;
+    float percent = static_cast<float>(active_life) / starting_life;
+    int health_length = percent * 100;
     SDL_Rect heath_bar = { 5, 5, health_length, 30 };
 
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);

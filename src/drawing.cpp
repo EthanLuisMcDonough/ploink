@@ -15,7 +15,7 @@ struct CircleLUT {
     CircleLUT() : vertices() {
         for (auto i = 0; i < N + 1; i++) {
             double angle = ((2 * M_PI) / N) * i;
-            vertices[i] = { (float)cos(angle), (float)sin(angle) };
+            vertices[i] = { static_cast<float>(cos(angle)), static_cast<float>(sin(angle)) };
         }
         vertices[N] = { 1, 0 };
     }

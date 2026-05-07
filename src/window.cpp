@@ -123,8 +123,8 @@ SDL_Renderer* get_renderer() {
 SDL_FPoint get_win_center() {
     int w, h;
     SDL_GetWindowSize(window, &w, &h);
-    float center_x = (float)w / 2.0f,
-        center_y = (float)h / 2.0f;
+    float center_x = static_cast<float>(w) / 2.0f,
+        center_y = static_cast<float>(h) / 2.0f;
     return { center_x, center_y };
 }
 
